@@ -27,6 +27,7 @@ Feature/ops docs (already present):
 - `docs/webhook.md`: Discord webhook events/payload.
 - `docs/diffing.md`: version-to-version diff UI spec.
 - `docs/manual-testing.md`: CLI smoke scripts.
+- `docs/internal-offline-plan.md`: scope and rollout plan for air-gapped LDAP-first deployments.
 
 Docs tooling:
 
