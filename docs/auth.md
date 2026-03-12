@@ -10,11 +10,13 @@ read_when:
 ## Web auth (GitHub OAuth)
 
 - Convex Auth + GitHub OAuth App.
-- GitHub is the only supported login provider.
+- Default provider is GitHub OAuth, but frontend sign-in button/provider id can be configured for internal deployments.
 - Env vars:
   - `AUTH_GITHUB_ID`
   - `AUTH_GITHUB_SECRET`
   - `CONVEX_SITE_URL` (used by auth config)
+  - `VITE_AUTH_PROVIDER` (frontend provider id passed to `signIn`, default `github`)
+  - `VITE_AUTH_PROVIDER_LABEL` (frontend sign-in button label override)
 
 Local setup steps are in the repo root `README.md`.
 
