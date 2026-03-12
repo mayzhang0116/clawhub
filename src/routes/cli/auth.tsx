@@ -3,6 +3,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { useMutation } from 'convex/react'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { api } from '../../../convex/_generated/api'
+import { getAuthProviderConfig } from '../../lib/authProvider'
 import { getClawHubSiteUrl, normalizeClawHubSiteOrigin } from '../../lib/site'
 import { useAuthStatus } from '../../lib/useAuthStatus'
 
@@ -29,6 +30,7 @@ function CliAuth() {
   const label = (decodeLabel(search.label_b64) ?? search.label ?? 'CLI token').trim() || 'CLI token'
   const state = typeof search.state === 'string' ? search.state.trim() : ''
   const signInRedirectTo = getCurrentRelativeUrl()
+  const { providerId, providerLabel } = getAuthProviderConfig()
 
   const safeRedirect = useMemo(() => isAllowedRedirectUri(redirectUri), [redirectUri])
   const registry = useMemo(() => {
@@ -109,10 +111,10 @@ function CliAuth() {
             type="button"
             disabled={isLoading}
             onClick={() =>
-              void signIn('github', signInRedirectTo ? { redirectTo: signInRedirectTo } : undefined)
+              void signIn(providerId, signInRedirectTo ? { redirectTo: signInRedirectTo } : undefined)
             }
           >
-            Sign in with GitHub
+            Sign in with {providerLabel}
           </button>
         </div>
       </main>

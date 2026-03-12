@@ -2,6 +2,7 @@ import { useAuthActions } from '@convex-dev/auth/react'
 import { Link } from '@tanstack/react-router'
 import { Menu, Monitor, Moon, Sun } from 'lucide-react'
 import { useMemo, useRef } from 'react'
+import { getAuthProviderConfig } from '../lib/authProvider'
 import { gravatarUrl } from '../lib/gravatar'
 import { isModerator } from '../lib/roles'
 import { getClawHubSiteUrl, getSiteMode, getSiteName } from '../lib/site'
@@ -32,6 +33,7 @@ export default function Header() {
   const initial = (me?.displayName ?? me?.name ?? handle).charAt(0).toUpperCase()
   const isStaff = isModerator(me)
   const signInRedirectTo = getCurrentRelativeUrl()
+  const { providerId, providerLabel } = getAuthProviderConfig()
 
   const setTheme = (next: 'system' | 'light' | 'dark') => {
     startThemeTransition({
@@ -289,13 +291,13 @@ export default function Header() {
               disabled={isLoading}
               onClick={() =>
                 void signIn(
-                  'github',
+                  providerId,
                   signInRedirectTo ? { redirectTo: signInRedirectTo } : undefined,
                 )
               }
             >
               <span className="sign-in-label">Sign in</span>
-              <span className="sign-in-provider">with GitHub</span>
+              <span className="sign-in-provider">with {providerLabel}</span>
             </button>
           )}
         </div>
